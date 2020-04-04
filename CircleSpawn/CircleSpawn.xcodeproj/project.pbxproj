@@ -59,12 +59,20 @@
 				77A8DE4724329E3E00A22228 /* AppDelegate.swift */,
 				77A8DE4924329E3E00A22228 /* SceneDelegate.swift */,
 				77A8DE4B24329E3E00A22228 /* CircleSpawnController.swift */,
-				AC9148DE2439054B0048A9BB /* CircleView.swift */,
+				AC9148E024393A500048A9BB /* Model */,
 				77A8DE5024329E4100A22228 /* Assets.xcassets */,
 				77A8DE5224329E4100A22228 /* LaunchScreen.storyboard */,
 				77A8DE5524329E4100A22228 /* Info.plist */,
 			);
 			path = CircleSpawn;
+			sourceTree = "<group>";
+		};
+		AC9148E024393A500048A9BB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AC9148DE2439054B0048A9BB /* CircleView.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
