@@ -5,10 +5,8 @@ class SpawnedViewSpawnController: UIViewController, UIGestureRecognizerDelegate 
     
     private let size: CGFloat = 100
     
-    //TODO: Move offsets to CircleView
-    var xOffset: CGFloat = 0.0
-    var yOffset: CGFloat = 0.0
-    
+    var offset: CGPoint = CGPoint(x: 0.0, y: 0.0)
+
 	override func loadView() {
 		view = UIView()
 		view.backgroundColor = .white
@@ -32,7 +30,7 @@ class SpawnedViewSpawnController: UIViewController, UIGestureRecognizerDelegate 
         UIView.animate(withDuration: 0.2, animations: {
             spawnedView.alpha = 1
             spawnedView.transform = .identity
-        }, completion: { completed in })
+        })
         
         let tripleTap = UITapGestureRecognizer(target: self, action: #selector(handleTripleTap(_:)))
         tripleTap.numberOfTapsRequired = 3
@@ -59,27 +57,24 @@ class SpawnedViewSpawnController: UIViewController, UIGestureRecognizerDelegate 
                 UIView.animate(withDuration: 0.2, animations: {
                     longPress.view?.alpha = 0.5
                     longPress.view?.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-                }, completion: { completed in })
+                })
                 
-                xOffset = (longPress.view?.center.x)! - longPress.location(in: view).x
-                yOffset = (longPress.view?.center.y)! - longPress.location(in: view).y
+                offset.x = (longPress.view?.center.x)! - longPress.location(in: view).x
+                offset.y = (longPress.view?.center.y)! - longPress.location(in: view).y
             case .changed:
-                longPress.view?.center.x = xOffset + longPress.location(in: view).x
-                longPress.view?.center.y = yOffset + longPress.location(in: view).y
+                longPress.view?.center.x = offset.x + longPress.location(in: view).x
+                longPress.view?.center.y = offset.y + longPress.location(in: view).y
             case .ended, .cancelled:
                 UIView.animate(withDuration: 0.2, animations: {
                     longPress.view?.alpha = 1
                     longPress.view?.transform = .identity
-                    longPress.view?.center = longPress.location(in: self.view)
-                }, completion: { completed in })
+                    longPress.view?.center.x = self.offset.x + longPress.location(in: self.view).x
+                    longPress.view?.center.y = self.offset.y + longPress.location(in: self.view).y
+                })
             default:
                 return
             }
         }
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
 }
 
 
